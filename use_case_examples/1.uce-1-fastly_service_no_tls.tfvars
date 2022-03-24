@@ -20,7 +20,7 @@ fastly_service = {
   force_destroy      = true
 }
 
-fastly_service_tls_enable_whit_aws = {
+fastly_service_tls_enable_with_aws = {
   enable                = false
   certificate_authority = "lets-encrypt"
   force_update          = true
