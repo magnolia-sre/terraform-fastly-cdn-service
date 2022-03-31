@@ -1,20 +1,20 @@
-# Uses Cases (¡How to test each feature in the module!)  
+# Uses Cases ( How to test each feature in the module )  
 
-Has been provided different ways to parameterize the `Gazelle module` (use case examples) in order to setup `myawesome-test` 
-and show how we can `include/exclude` the different **features** given in the module. 
+There are different ways to parameterize the `Gazelle module` (use case examples) in order to setup `myawesome-test` 
+and demonstrate how we can `include/exclude`  different **features** in the module. 
 
-So, we need to have the next pre-requisites to play whit it:
+Following pre-requisites are required:
 
 - A S3 bucket
 - Public permissions fot the bucket
 - An object in the S3 bucket
 - Public permission for the object
 
-1. Create a `AWS bucket` named `myawesome-test`
+1. Create an `AWS bucket` named `myawesome-test`
    
    ![alt text](../images/1.uce-1-bucket.png)
    
-2. Give the public permission to the `myawesome-test` bucket
+2. Grant a public permission to the `myawesome-test` bucket
    
    ![alt text](../images/2.uce-1-bucketACL.png)
    
@@ -22,7 +22,7 @@ So, we need to have the next pre-requisites to play whit it:
    
    ![alt text](../images/3.uce-1-objectinbucket.png)
    
-4. Give the public permission to the `object` image
+4. Grant a public permission to the `object` image
    
    ![alt text](../images/4.uce-1-objectinbucketACL.png)
    
@@ -32,7 +32,7 @@ So, we need to have the next pre-requisites to play whit it:
 
 ## Use Case 1: Fastly Service without TLS
 
-In order to start whit the simplest `fastly service` we can parameterize the `Gazelle module` in the next way:
+In order to start with the simplest `fastly service` we can parameterize the `Gazelle module` in the following way:
 
 ```
 domain = "myawesome-test.exp.magnolia-cloud.com"
@@ -57,7 +57,7 @@ fastly_service = {
   force_destroy      = true
 }
 
-fastly_service_tls_enable_whit_aws = {
+fastly_service_tls_enable_with_aws = {
   enable                = false
   certificate_authority = "lets-encrypt"
   force_update          = true
@@ -68,7 +68,7 @@ fastly_service_tls_enable_whit_aws = {
 
 ```
 
-Once parameterized the `Gazelle module` just run the commands:
+Once you have parameterized the `Gazelle module` execute the following commands to deploy it:
 ```
  terraform init
  terraform apply -var-file=use_case_examples/1.uce-1-fastly_service_no_tls.tfvars
@@ -78,7 +78,7 @@ Finally, we will see the simplest `fastly service` ready, without TLS, snippets,
    
    ![alt text](../images/6.uce-1-fastlyservice.png)
 
-Let's see the fasyly service `host`
+Let's see the fastly service `host`
    
    ![alt text](../images/7.uce-1-fastlyservicehost.png)
 
@@ -88,8 +88,8 @@ And doing click in `Test domain` we will see the `myawesome-test` and `object` i
 
 ## Use Case 2: Fastly Service with TLS
 
-In order to update our simple `fastly service` without TLS and provide `TLS feature` just we need to parameterize the 
-`Gazelle module` in the next way:
+In order to update our simple `fastly service` without TLS and provide `TLS feature` we need to parameterize the 
+`Gazelle module` in the following way:
 
 ```
 domain = "myawesome-test.exp.magnolia-cloud.com"
@@ -119,7 +119,7 @@ fastly_service = {
   force_destroy   = true
 }
 
-fastly_service_tls_enable_whit_aws = {
+fastly_service_tls_enable_with_aws = {
   enable                = true
   certificate_authority = "lets-encrypt"
   force_update          = true
@@ -134,8 +134,7 @@ fastly_service_tls_enable_whit_aws = {
   }
 }
 ```
-
-Once parameterized the `Gazelle module` just run the commands:
+Once you have parameterized the `Gazelle module` execute the following commands to deploy it:
 
 ```
  terraform init
@@ -148,16 +147,16 @@ Finally, we will see the `fastly service` upgrade, generating the certificates a
 
    ![alt text](../images/10.uce-2-fastlyservicetlsdetailsgenerating.png)
    
-Let's check the AWS Route53 records created automatically too
+Let's check that the AWS Route53 records were created automatically too
 
    ![alt text](../images/11.uce-2-route53recordsadded.png)
    
-Once the records and the validation has been made in `Fastly` we will see the `TLS` for our `fastly service` activated
-whit the domain specified
+Once the records and the validation has been created in `Fastly` we will see the `TLS` for our `fastly service` activated
+with the domain specified
 
    ![alt text](../images/12.uce-2-fastlyservicetlsdone.png)
 
-Let's see the fasyly service `host` whiy the detail `TLS` configuration made
+Let's see the fastly service `host` with the detail `TLS` configuration made
 
    ![alt text](../images/13.uce-2-fastlyservicetlsoverview.png)
    
@@ -165,11 +164,11 @@ Let's explore the `request setting` configuration as well
 
    ![alt text](../images/14.uce-2-fastlyservicetlsrequestsettings.png)
 
-And again doing click in `Test domain` we will see the `myawesome-test` and `object` in XML format whit `TLS` (secure)
+And again doing click in `Test domain` we will see the `myawesome-test` and `object` in XML format with `TLS` (secure)
 
    ![alt text](../images/15.uce-2-fastlyservicetlsaccess.png)
    
-Now we can access directly from a `Web Browser` to the `object` image expose on `Fastly` CDN directly
+Now we can directly access from a `Web Browser` to the `object` image exposed on `Fastly` CDN directly
 
    ![alt text](../images/16.uce-2-fastlyservicetlsaccessobject.png)
 
@@ -177,14 +176,14 @@ Now we can access directly from a `Web Browser` to the `object` image expose on 
 
 We can extend our `fastly service` using VCL language through [regular VCL snippets](https://docs.fastly.com/en/guides/using-regular-vcl-snippets), 
 for instance we would like to [keep the content in cache in Fastly and not in browsers](https://developer.fastly.com/learning/concepts/cache-freshness/#cache-in-fastly-not-in-browsers), 
-therefore we can extend the `fastly service` previously created adding the corresponding snippet.
+therefore we can extend the previously created `fastly service` by adding the corresponding snippet.
 
-Let's first a request in the Web Browser and let's check the `Request Header` and the key `cache-control` first:
+Let's first a request in the Web Browser and let's check the `Request Header` and the key `cache-control` first to verify that feature was enabled:
 
    ![alt text](../images/17.uce-3-cachefastlyandbrowser.png)
 
-Let's configure the `Gazelle module` to provide the desired behaviour ([keep the content in cache in Fastly and not in browsers](https://developer.fastly.com/learning/concepts/cache-freshness/#cache-in-fastly-not-in-browsers))
-through a snippet:
+To configure the `Gazelle module` to provide the desired behaviour ([keep the content in cache in Fastly and not in browsers](https://developer.fastly.com/learning/concepts/cache-freshness/#cache-in-fastly-not-in-browsers))
+we can do it through a following snippet:
 
 ```
 domain = "myawesome-test.exp.magnolia-cloud.com"
@@ -226,7 +225,7 @@ EOF
   force_destroy   = true
 }
 
-fastly_service_tls_enable_whit_aws = {
+fastly_service_tls_enable_with_aws = {
   enable                = true
   certificate_authority = "lets-encrypt"
   force_update          = true
@@ -242,7 +241,7 @@ fastly_service_tls_enable_whit_aws = {
 }
 ```
 
-Once parameterized the `Gazelle module` just run the commands:
+Once you have parameterized the `Gazelle module` execute the following commands to deploy it:
 
 ```
  terraform init
@@ -316,7 +315,7 @@ EOF
   force_destroy   = true
 }
 
-fastly_service_tls_enable_whit_aws = {
+fastly_service_tls_enable_with_aws = {
   enable                = true
   certificate_authority = "lets-encrypt"
   force_update          = true
@@ -406,7 +405,7 @@ EOF
   force_destroy   = true
 }
 
-fastly_service_tls_enable_whit_aws = {
+fastly_service_tls_enable_with_aws = {
   enable                = true
   certificate_authority = "lets-encrypt"
   force_update          = true
@@ -422,22 +421,22 @@ fastly_service_tls_enable_whit_aws = {
 }
 ```
 
-Once parameterized the `Gazelle module` just run the commands:
+Once you have parameterized the `Gazelle module` run the following commands for deployment of the module:
 
 ```
  terraform init
  terraform apply -var-file=use_case_examples/1.uce-1-fastly_service_no_tls.tfvars
 ```
 
-Applied the above configuration we will see out `fastly_service` whit `shielding`
+After applying the above configuration we will see  `fastly_service` with `shielding`
 
    ![alt text](../images/26.uce-5-fastlyimageoptimizerenable.png)
 
 
 ## Use Case 6: Fastly Service with TLS, VCL (Snippets) and monitoring (Datadog)
 
-`Gazelle module` cover the monitoring feature using a [custom template](https://git.magnolia-cms.com/users/jvalderrama/repos/fastly_service/browse/monitoring/datadog/access_log_format_fastly.tpl)
-for **Datadog** in order to push logs and related there. The important part to configure this is to set the correct 
+`Gazelle module` covers the monitoring feature by using a [custom template](https://git.magnolia-cms.com/users/jvalderrama/repos/fastly_service/browse/monitoring/datadog/access_log_format_fastly.tpl)
+for **Datadog** in order to push logs and related information. The important part to configure this is to set the correct 
 `token` and `region` in the `login_datadog` variable object:
 
 ```
@@ -486,7 +485,7 @@ EOF
   force_destroy   = true
 }
 
-fastly_service_tls_enable_whit_aws = {
+fastly_service_tls_enable_with_aws = {
   enable                = true
   certificate_authority = "lets-encrypt"
   force_update          = true
@@ -502,14 +501,14 @@ fastly_service_tls_enable_whit_aws = {
 }
 ```
 
-Once parameterized the `Gazelle module` just run the commands:
+Once you have parameterized the `Gazelle module` execute the following commands to deploy it:
 
 ```
  terraform init
  terraform apply -var-file=use_case_examples/1.uce-1-fastly_service_no_tls.tfvars
 ```
 
-Applied the above configuration we will see out `fastly_service` whit `monitoring` in `Datadog` platform
+After applying the above configuration we will see out `fastly_service` with `monitoring` in `Datadog` platform
 
    ![alt text](../images/27.uce-6-fastlydatadogintegration.png)
 

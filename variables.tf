@@ -75,7 +75,7 @@ variable "fastly_service" {
   }
 }
 
-variable "fastly_service_tls_enable_whit_aws" {
+variable "fastly_service_tls_enable_with_aws" {
   description = <<EOF
     enable                = Enables or not TLS for fastly_service against AWS Route53 service
     certificate_authority = The entity that issues and certifies the TLS certificates

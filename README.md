@@ -1,17 +1,17 @@
-# Gazelle Module: A fastly service with Terraform and much more in a nutch 
+# Gazelle Module: A fastly service with Terraform and much more in a nutshell 
 
 The `Gazelle terraform module` is in charge to setup a [fastly service](https://docs.fastly.com/en/guides/working-with-services) 
-and more in a nutch!!!
+and more in a nutshell!
 
 It is based on [fastly terraform provider](https://registry.terraform.io/providers/fastly/fastly/latest/docs) and
-includes an easiest and fastest way to generate `fastly services` whit the next **futures** included weather those are
-desired too, and being performed by only a simple configuration in the `Gazelle module`:
+includes an easiest and fastest way to generate `fastly services` with the following **features** included, in case those are
+desired too. They can be performed with simple configuration changes in the `Gazelle module`:
 
-- Fastly service whit **TLS** using **AWS Route53** 
+- Fastly service with **TLS** using **AWS Route53** 
 - Add Varnish Configuration Language **- VCL snippets -** to the fastly service
-- Fastly service whit **director**
-- Fastly service whit **shielding**
-- Fastly service **monitoring** whit **Datadog**
+- Fastly service with **director**
+- Fastly service with **shielding**
+- Fastly service **monitoring** with **Datadog**
 
 Just parameterized the above use cases if needed, and you will get your `fastly service` setup and ready in a glance!!!
 
@@ -27,7 +27,7 @@ Once you have the `Gazelle module` you need to provide the correct `credentials`
  export AWS_SESSION_TOKEN="my-aws-session-token-xxx"
 ```
 
-Once set those `credentials`, let's explore the different **features provided** and how can be performed whit this module 
+Once you have set those `credentials`, let's explore the different **features provided** and how can they be performed with this module 
 given the examples in [use cases examples](./use_case_examples/)
 
 ## Requirements
@@ -49,8 +49,8 @@ given the examples in [use cases examples](./use_case_examples/)
 | Name | Description | Type | Required |
 |------|-------------|------|:--------:|
 | domain | Internet facing CDN domain | string | yes |
-| fastly_service | Representation object that specifies a fastly service **whit/without TLS, snippets, director, shielding and monitoring (datadog)** | object | yes |
-| fastly_service_tls_enable_whit_aws | Representation object that specifies a fastly service whit TLS provided by **AWS (Route53)** setup and verification | object |  no |
+| fastly_service | Representation object that specifies a fastly service **with/without TLS, snippets, director, shielding and monitoring (datadog)** | object | yes |
+| fastly_service_tls_enable_with_aws | Representation object that specifies a fastly service with TLS provided by **AWS (Route53)** setup and verification | object |  no |
 
 
 ### Representation Objects
@@ -80,7 +80,7 @@ given the examples in [use cases examples](./use_case_examples/)
 > configuration (features), eg:* `override_host`, `shield` like `null` or  `snippets`,  `logging_datadog` and `request_settings` like `[]`,
 >for the `fastly_service` input object variable .
 
-    - fastly_service_tls_enable_whit_aws object
+    - fastly_service_tls_enable_with_aws object
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
