@@ -1,6 +1,6 @@
 # Uses Cases ( How to test each feature in the module )  
 
-There are different ways to parameterize the `Gazelle module` (use case examples) in order to setup `myawesome-test` 
+There are different ways to parameterize the `terraform-fastly-module` (use case examples) in order to setup `myawesome-test` 
 and demonstrate how we can `include/exclude`  different **features** in the module. 
 
 Following pre-requisites are required:
@@ -32,7 +32,7 @@ Following pre-requisites are required:
 
 ## Use Case 1: Fastly Service without TLS
 
-In order to start with the simplest `fastly service` we can parameterize the `Gazelle module` in the following way:
+In order to start with the simplest `fastly service` we can parameterize the `terraform-fastly-module` in the following way:
 
 ```
 domain = "myawesome-test.exp.magnolia-cloud.com"
@@ -68,7 +68,7 @@ fastly_service_tls_enable_with_aws = {
 
 ```
 
-Once you have parameterized the `Gazelle module` execute the following commands to deploy it:
+Once you have parameterized the `terraform-fastly-module` execute the following commands to deploy it:
 ```
  terraform init
  terraform apply -var-file=use_case_examples/1.uce-1-fastly_service_no_tls.tfvars
@@ -89,7 +89,7 @@ And doing click in `Test domain` we will see the `myawesome-test` and `object` i
 ## Use Case 2: Fastly Service with TLS
 
 In order to update our simple `fastly service` without TLS and provide `TLS feature` we need to parameterize the 
-`Gazelle module` in the following way:
+`terraform-fastly-module` in the following way:
 
 ```
 domain = "myawesome-test.exp.magnolia-cloud.com"
@@ -134,7 +134,7 @@ fastly_service_tls_enable_with_aws = {
   }
 }
 ```
-Once you have parameterized the `Gazelle module` execute the following commands to deploy it:
+Once you have parameterized the `terraform-fastly-module` execute the following commands to deploy it:
 
 ```
  terraform init
@@ -182,7 +182,7 @@ Let's first a request in the Web Browser and let's check the `Request Header` an
 
    ![alt text](../images/17.uce-3-cachefastlyandbrowser.png)
 
-To configure the `Gazelle module` to provide the desired behaviour ([keep the content in cache in Fastly and not in browsers](https://developer.fastly.com/learning/concepts/cache-freshness/#cache-in-fastly-not-in-browsers))
+To configure the `terraform-fastly-module` to provide the desired behaviour ([keep the content in cache in Fastly and not in browsers](https://developer.fastly.com/learning/concepts/cache-freshness/#cache-in-fastly-not-in-browsers))
 we can do it through a following snippet:
 
 ```
@@ -241,7 +241,7 @@ fastly_service_tls_enable_with_aws = {
 }
 ```
 
-Once you have parameterized the `Gazelle module` execute the following commands to deploy it:
+Once you have parameterized the `terraform-fastly-module` execute the following commands to deploy it:
 
 ```
  terraform init
@@ -331,7 +331,7 @@ fastly_service_tls_enable_with_aws = {
 }
 ```
 
-Once parameterized the `Gazelle module` just run the commands:
+Once parameterized the `terraform-fastly-module` just run the commands:
 
 ```
  terraform init
@@ -421,7 +421,7 @@ fastly_service_tls_enable_with_aws = {
 }
 ```
 
-Once you have parameterized the `Gazelle module` run the following commands for deployment of the module:
+Once you have parameterized the `terraform-fastly-module` run the following commands for deployment of the module:
 
 ```
  terraform init
@@ -435,7 +435,7 @@ After applying the above configuration we will see  `fastly_service` with `shiel
 
 ## Use Case 6: Fastly Service with TLS, VCL (Snippets) and monitoring (Datadog)
 
-`Gazelle module` covers the monitoring feature by using a [custom template](https://git.magnolia-cms.com/users/jvalderrama/repos/fastly_service/browse/monitoring/datadog/access_log_format_fastly.tpl)
+`terraform-fastly-module` covers the monitoring feature by using a [custom template](https://git.magnolia-cms.com/users/jvalderrama/repos/fastly_service/browse/monitoring/datadog/access_log_format_fastly.tpl)
 for **Datadog** in order to push logs and related information. The important part to configure this is to set the correct 
 `token` and `region` in the `login_datadog` variable object:
 
@@ -501,7 +501,7 @@ fastly_service_tls_enable_with_aws = {
 }
 ```
 
-Once you have parameterized the `Gazelle module` execute the following commands to deploy it:
+Once you have parameterized the `terraform-fastly-module` execute the following commands to deploy it:
 
 ```
  terraform init

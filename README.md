@@ -1,11 +1,11 @@
-# Gazelle Module: A fastly service with Terraform and much more in a nutshell 
+# terraform-fastly-module: A fastly service with Terraform
 
-The `Gazelle terraform module` is in charge to setup a [fastly service](https://docs.fastly.com/en/guides/working-with-services) 
+The `terraform-fastly-module` is in charge to setup a [fastly service](https://docs.fastly.com/en/guides/working-with-services) 
 and more in a nutshell!
 
 It is based on [fastly terraform provider](https://registry.terraform.io/providers/fastly/fastly/latest/docs) and
 includes an easiest and fastest way to generate `fastly services` with the following **features** included, in case those are
-desired too. They can be performed with simple configuration changes in the `Gazelle module`:
+desired too. They can be performed with simple configuration changes in the `terraform-fastly-module`:
 
 - Fastly service with **TLS** using **AWS Route53** 
 - Add Varnish Configuration Language **- VCL snippets -** to the fastly service
@@ -17,7 +17,7 @@ Just parameterized the above use cases if needed, and you will get your `fastly 
 
 ## How to use it
 
-Once you have the `Gazelle module` you need to provide the correct `credentials` for the `fastly provider` and `aws provider`
+Once you have the `terraform-fastly-module` you need to provide the correct `credentials` for the `fastly provider` and `aws provider`
 
 ```
  export FASTLY_API_KEY="my-fastly-api-key-xxx"
