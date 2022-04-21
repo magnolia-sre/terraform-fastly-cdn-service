@@ -37,35 +37,30 @@ In order to start with the simplest `fastly service` we can parameterize the `te
 ```
 domain = "myawesome-test.exp.magnolia-cloud.com"
 
-fastly_service = {
-  service_name       = "magnolia-cloud-myawesome-test-staging"
-  director           = false
-  backend_address    = "myawesome-test.s3.eu-central-1.amazonaws.com"
-  number_of_backends = 1
-  port               = 80
-  use_ssl            = false
-  ssl_cert_hostname  = ""
-  ssl_check_cert     = false
-  ssl_sni_hostname   = ""
-  auto_loadbalance   = false
-  max_connections    = 1000
-  override_host      = "myawesome-test.s3.eu-central-1.amazonaws.com"
-  shield             = null
-  request_settings   = []
-  snippets           = []
-  logging_datadog    = []
-  force_destroy      = true
-}
+service_name       = "magnolia-cloud-myawesome-test-staging"
+director           = false
+backend_address    = "myawesome-test.s3.eu-central-1.amazonaws.com"
+number_of_backends = 1
+port               = 80
+use_ssl            = false
+ssl_cert_hostname  = ""
+ssl_check_cert     = false
+ssl_sni_hostname   = ""
+auto_loadbalance   = false
+max_connections    = 1000
+override_host      = "myawesome-test.s3.eu-central-1.amazonaws.com"
+shield             = null
+request_settings   = []
+snippets           = []
+logging_datadog    = []
+service_force_destroy      = true
 
-fastly_service_tls_enable_with_aws = {
-  enable                = false
-  certificate_authority = "lets-encrypt"
-  force_update          = true
-  force_destroy         = true
-  route_53_record       = null
-  route_53_validation   = null
-}
-
+enable_tls            = false
+tls_certificate_authority = "lets-encrypt"
+tls_force_update          = true
+tls_force_destroy         = true
+aws_route_53_record       = null
+aws_route_53_validation   = null
 ```
 
 Once you have parameterized the `terraform-fastly-module` execute the following commands to deploy it:
@@ -94,44 +89,40 @@ In order to update our simple `fastly service` without TLS and provide `TLS feat
 ```
 domain = "myawesome-test.exp.magnolia-cloud.com"
 
-fastly_service = {
-  service_name       = "magnolia-cloud-myawesome-test-staging"
-  director           = false
-  backend_address    = "myawesome-test.s3.eu-central-1.amazonaws.com"
-  number_of_backends = 1
-  port               = 443
-  use_ssl            = true
-  ssl_cert_hostname  = "*.s3.eu-central-1.amazonaws.com"
-  ssl_check_cert     = true
-  ssl_sni_hostname   = "*.s3.eu-central-1.amazonaws.com"
-  auto_loadbalance   = false
-  max_connections    = 1000
-  override_host      = "myawesome-test.s3.eu-central-1.amazonaws.com"
-  shield             = null
-  request_settings = [
-    {
-      name      = "force_ssl"
-      force_ssl = true
-    }
-  ]
-  snippets        = []
-  logging_datadog = []
-  force_destroy   = true
-}
+service_name       = "magnolia-cloud-myawesome-test-staging"
+director           = false
+backend_address    = "myawesome-test.s3.eu-central-1.amazonaws.com"
+number_of_backends = 1
+port               = 443
+use_ssl            = true
+ssl_cert_hostname  = "*.s3.eu-central-1.amazonaws.com"
+ssl_check_cert     = true
+ssl_sni_hostname   = "*.s3.eu-central-1.amazonaws.com"
+auto_loadbalance   = false
+max_connections    = 1000
+override_host      = "myawesome-test.s3.eu-central-1.amazonaws.com"
+shield             = null
+request_settings = [
+  {
+    name      = "force_ssl"
+    force_ssl = true
+  }
+]
+snippets        = []
+logging_datadog = []
+service_force_destroy   = true
 
-fastly_service_tls_enable_with_aws = {
-  enable                = true
-  certificate_authority = "lets-encrypt"
-  force_update          = true
-  force_destroy         = true
-  route_53_record = {
-    type = "CNAME"
-    ttl  = 300
-  }
-  route_53_validation = {
-    allow_overwrite = true
-    ttl             = 60
-  }
+enable_tls            = true
+tls_certificate_authority = "lets-encrypt"
+tls_force_update          = true
+tls_force_destroy         = true
+aws_route_53_record = {
+  type = "CNAME"
+  ttl  = 300
+}
+aws_route_53_validation = {
+  allow_overwrite = true
+  ttl             = 60
 }
 ```
 Once you have parameterized the `terraform-fastly-module` execute the following commands to deploy it:
@@ -188,56 +179,52 @@ we can do it through a following snippet:
 ```
 domain = "myawesome-test.exp.magnolia-cloud.com"
 
-fastly_service = {
-  service_name       = "magnolia-cloud-myawesome-test-staging"
-  director           = false
-  backend_address    = "myawesome-test.s3.eu-central-1.amazonaws.com"
-  number_of_backends = 1
-  port               = 443
-  use_ssl            = true
-  ssl_cert_hostname  = "*.s3.eu-central-1.amazonaws.com"
-  ssl_check_cert     = true
-  ssl_sni_hostname   = "*.s3.eu-central-1.amazonaws.com"
-  auto_loadbalance   = false
-  max_connections    = 1000
-  override_host      = "myawesome-test.s3.eu-central-1.amazonaws.com"
-  shield             = null
-  request_settings = [
-    {
-      name      = "force_ssl"
-      force_ssl = true
-    }
-  ]
-  snippets        = [
-    {
-      #https://developer.fastly.com/learning/concepts/cache-freshness/#cache-in-fastly-not-in-browsers
-      name     = "Content to be cached by Fastly but not by browsers"
-      type     = "fetch"
-      priority = 100
-      content  = <<EOF
+service_name       = "magnolia-cloud-myawesome-test-staging"
+director           = false
+backend_address    = "myawesome-test.s3.eu-central-1.amazonaws.com"
+number_of_backends = 1
+port               = 443
+use_ssl            = true
+ssl_cert_hostname  = "*.s3.eu-central-1.amazonaws.com"
+ssl_check_cert     = true
+ssl_sni_hostname   = "*.s3.eu-central-1.amazonaws.com"
+auto_loadbalance   = false
+max_connections    = 1000
+override_host      = "myawesome-test.s3.eu-central-1.amazonaws.com"
+shield             = null
+request_settings = [
+  {
+    name      = "force_ssl"
+    force_ssl = true
+  }
+]
+snippets        = [
+  {
+    #https://developer.fastly.com/learning/concepts/cache-freshness/#cache-in-fastly-not-in-browsers
+    name     = "Content to be cached by Fastly but not by browsers"
+    type     = "fetch"
+    priority = 100
+    content  = <<EOF
 set beresp.http.Cache-Control = "private, no-store"; # Don't cache in the browser
 set beresp.ttl = 3600s; # Cache in Fastly
 return(deliver);
 EOF
-    }
-  ]
-  logging_datadog = []
-  force_destroy   = true
-}
+  }
+]
+logging_datadog = []
+service_force_destroy   = true
 
-fastly_service_tls_enable_with_aws = {
-  enable                = true
-  certificate_authority = "lets-encrypt"
-  force_update          = true
-  force_destroy         = true
-  route_53_record = {
-    type = "CNAME"
-    ttl  = 300
-  }
-  route_53_validation = {
-    allow_overwrite = true
-    ttl             = 60
-  }
+enable_tls            = true
+tls_certificate_authority = "lets-encrypt"
+tls_force_update          = true
+tls_force_destroy         = true
+aws_route_53_record = {
+  type = "CNAME"
+  ttl  = 300
+}
+aws_route_53_validation = {
+  allow_overwrite = true
+  ttl             = 60
 }
 ```
 
@@ -277,57 +264,53 @@ the corresponding configuration:
 ```
 domain = "myawesome-test.exp.magnolia-cloud.com"
 
-fastly_service = {
-  service_name       = "magnolia-cloud-myawesome-test-staging"
-  #https://developer.fastly.com/reference/api/load-balancing/directors/director/
-  director           = true
-  backend_address    = "myawesome-test.s3.eu-central-1.amazonaws.com"
-  number_of_backends = 3 # Differs of 1 because director = true
-  port               = 443
-  use_ssl            = true
-  ssl_cert_hostname  = "*.s3.eu-central-1.amazonaws.com"
-  ssl_check_cert     = true
-  ssl_sni_hostname   = "*.s3.eu-central-1.amazonaws.com"
-  auto_loadbalance   = false
-  max_connections    = 1000
-  override_host      = "myawesome-test.s3.eu-central-1.amazonaws.com"
-  shield             = null
-  request_settings = [
-    {
-      name      = "force_ssl"
-      force_ssl = true
-    }
-  ]
-  snippets        = [
-    {
-      #https://developer.fastly.com/learning/concepts/cache-freshness/#cache-in-fastly-not-in-browsers
-      name     = "Content to be cached by Fastly but not by browsers"
-      type     = "fetch"
-      priority = 100
-      content  = <<EOF
+service_name       = "magnolia-cloud-myawesome-test-staging"
+#https://developer.fastly.com/reference/api/load-balancing/directors/director/
+director           = true
+backend_address    = "myawesome-test.s3.eu-central-1.amazonaws.com"
+number_of_backends = 3 # Differs of 1 because director = true
+port               = 443
+use_ssl            = true
+ssl_cert_hostname  = "*.s3.eu-central-1.amazonaws.com"
+ssl_check_cert     = true
+ssl_sni_hostname   = "*.s3.eu-central-1.amazonaws.com"
+auto_loadbalance   = false
+max_connections    = 1000
+override_host      = "myawesome-test.s3.eu-central-1.amazonaws.com"
+shield             = null
+request_settings = [
+  {
+    name      = "force_ssl"
+    force_ssl = true
+  }
+]
+snippets        = [
+  {
+    #https://developer.fastly.com/learning/concepts/cache-freshness/#cache-in-fastly-not-in-browsers
+    name     = "Content to be cached by Fastly but not by browsers"
+    type     = "fetch"
+    priority = 100
+    content  = <<EOF
 set beresp.http.Cache-Control = "private, no-store"; # Don't cache in the browser
 set beresp.ttl = 3600s; # Cache in Fastly
 return(deliver);
 EOF
-    }
-  ]
-  logging_datadog = []
-  force_destroy   = true
-}
+  }
+]
+logging_datadog = []
+service_force_destroy   = true
 
-fastly_service_tls_enable_with_aws = {
-  enable                = true
-  certificate_authority = "lets-encrypt"
-  force_update          = true
-  force_destroy         = true
-  route_53_record = {
-    type = "CNAME"
-    ttl  = 300
-  }
-  route_53_validation = {
-    allow_overwrite = true
-    ttl             = 60
-  }
+enable_tls            = true
+tls_certificate_authority = "lets-encrypt"
+tls_force_update          = true
+tls_force_destroy         = true
+aws_route_53_record = {
+  type = "CNAME"
+  ttl  = 300
+}
+aws_route_53_validation = {
+  allow_overwrite = true
+  ttl             = 60
 }
 ```
 
@@ -367,57 +350,53 @@ be `frankfurt-de` :
 ```
 domain = "myawesome-test.exp.magnolia-cloud.com"
 
-fastly_service = {
-  service_name       = "magnolia-cloud-myawesome-test-staging"
-  director           = false
-  backend_address    = "myawesome-test.s3.eu-central-1.amazonaws.com"
-  number_of_backends = 1
-  port               = 443
-  use_ssl            = true
-  ssl_cert_hostname  = "*.s3.eu-central-1.amazonaws.com"
-  ssl_check_cert     = true
-  ssl_sni_hostname   = "*.s3.eu-central-1.amazonaws.com"
-  auto_loadbalance   = false
-  max_connections    = 1000
-  override_host      = "myawesome-test.s3.eu-central-1.amazonaws.com"
-  #https://developer.fastly.com/learning/concepts/shielding/
-  shield             = "frankfurt-de"
-  request_settings = [
-    {
-      name      = "force_ssl"
-      force_ssl = true
-    }
-  ]
-  snippets        = [
-    {
-      #https://developer.fastly.com/learning/concepts/cache-freshness/#cache-in-fastly-not-in-browsers
-      name     = "Content to be cached by Fastly but not by browsers"
-      type     = "fetch"
-      priority = 100
-      content  = <<EOF
+service_name       = "magnolia-cloud-myawesome-test-staging"
+director           = false
+backend_address    = "myawesome-test.s3.eu-central-1.amazonaws.com"
+number_of_backends = 1
+port               = 443
+use_ssl            = true
+ssl_cert_hostname  = "*.s3.eu-central-1.amazonaws.com"
+ssl_check_cert     = true
+ssl_sni_hostname   = "*.s3.eu-central-1.amazonaws.com"
+auto_loadbalance   = false
+max_connections    = 1000
+override_host      = "myawesome-test.s3.eu-central-1.amazonaws.com"
+#https://developer.fastly.com/learning/concepts/shielding/
+shield             = "frankfurt-de"
+request_settings = [
+  {
+    name      = "force_ssl"
+    force_ssl = true
+  }
+]
+snippets        = [
+  {
+    #https://developer.fastly.com/learning/concepts/cache-freshness/#cache-in-fastly-not-in-browsers
+    name     = "Content to be cached by Fastly but not by browsers"
+    type     = "fetch"
+    priority = 100
+    content  = <<EOF
 set beresp.http.Cache-Control = "private, no-store"; # Don't cache in the browser
 set beresp.ttl = 3600s; # Cache in Fastly
 return(deliver);
 EOF
-    }
-  ]
-  logging_datadog = []
-  force_destroy   = true
-}
+  }
+]
+logging_datadog = []
+service_force_destroy   = true
 
-fastly_service_tls_enable_with_aws = {
-  enable                = true
-  certificate_authority = "lets-encrypt"
-  force_update          = true
-  force_destroy         = true
-  route_53_record = {
-    type = "CNAME"
-    ttl  = 300
-  }
-  route_53_validation = {
-    allow_overwrite = true
-    ttl             = 60
-  }
+enable_tls            = true
+tls_certificate_authority = "lets-encrypt"
+tls_force_update          = true
+tls_force_destroy         = true
+aws_route_53_record = {
+  type = "CNAME"
+  ttl  = 300
+}
+aws_route_53_validation = {
+  allow_overwrite = true
+  ttl             = 60
 }
 ```
 
@@ -442,62 +421,58 @@ for **Datadog** in order to push logs and related information. The important par
 ```
 domain = "myawesome-test.exp.magnolia-cloud.com"
 
-fastly_service = {
-  service_name       = "magnolia-cloud-myawesome-test-staging"
-  director           = false
-  backend_address    = "myawesome-test.s3.eu-central-1.amazonaws.com"
-  number_of_backends = 1
-  port               = 443
-  use_ssl            = true
-  ssl_cert_hostname  = "*.s3.eu-central-1.amazonaws.com"
-  ssl_check_cert     = true
-  ssl_sni_hostname   = "*.s3.eu-central-1.amazonaws.com"
-  auto_loadbalance   = false
-  max_connections    = 1000
-  override_host      = "myawesome-test.s3.eu-central-1.amazonaws.com"
-  shield             = null
-  request_settings = [
-    {
-      name      = "force_ssl"
-      force_ssl = true
-    }
-  ]
-  snippets        = [
-    {
-      #https://developer.fastly.com/learning/concepts/cache-freshness/#cache-in-fastly-not-in-browsers
-      name     = "Content to be cached by Fastly but not by browsers"
-      type     = "fetch"
-      priority = 100
-      content  = <<EOF
+service_name       = "magnolia-cloud-myawesome-test-staging"
+director           = false
+backend_address    = "myawesome-test.s3.eu-central-1.amazonaws.com"
+number_of_backends = 1
+port               = 443
+use_ssl            = true
+ssl_cert_hostname  = "*.s3.eu-central-1.amazonaws.com"
+ssl_check_cert     = true
+ssl_sni_hostname   = "*.s3.eu-central-1.amazonaws.com"
+auto_loadbalance   = false
+max_connections    = 1000
+override_host      = "myawesome-test.s3.eu-central-1.amazonaws.com"
+shield             = null
+request_settings = [
+  {
+    name      = "force_ssl"
+    force_ssl = true
+  }
+]
+snippets        = [
+  {
+    #https://developer.fastly.com/learning/concepts/cache-freshness/#cache-in-fastly-not-in-browsers
+    name     = "Content to be cached by Fastly but not by browsers"
+    type     = "fetch"
+    priority = 100
+    content  = <<EOF
 set beresp.http.Cache-Control = "private, no-store"; # Don't cache in the browser
 set beresp.ttl = 3600s; # Cache in Fastly
 return(deliver);
 EOF
-    }
-  ]
-  logging_datadog = [
-    {
-      name   = "datadog-myawesome-test-staging"
-      token  = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
-      region = "EU"
-    }
-  ]
-  force_destroy   = true
-}
+  }
+]
+logging_datadog = [
+  {
+    name   = "datadog-myawesome-test-staging"
+    token  = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+    region = "EU"
+  }
+]
+service_force_destroy   = true
 
-fastly_service_tls_enable_with_aws = {
-  enable                = true
-  certificate_authority = "lets-encrypt"
-  force_update          = true
-  force_destroy         = true
-  route_53_record = {
-    type = "CNAME"
-    ttl  = 300
-  }
-  route_53_validation = {
-    allow_overwrite = true
-    ttl             = 60
-  }
+enable_tls            = true
+tls_certificate_authority = "lets-encrypt"
+tls_force_update          = true
+tls_force_destroy         = true
+aws_route_53_record = {
+  type = "CNAME"
+  ttl  = 300
+}
+aws_route_53_validation = {
+  allow_overwrite = true
+  ttl             = 60
 }
 ```
 
