@@ -1,10 +1,9 @@
 domain = "myawesome-test.exp.magnolia-cloud.com"
 
 service_name       = "magnolia-cloud-myawesome-test-staging"
-#https://developer.fastly.com/reference/api/load-balancing/directors/director/
-director           = true
+director           = false
 backend_address    = "myawesome-test.s3.eu-central-1.amazonaws.com"
-number_of_backends = 3 # Differs of 1 because director = true
+number_of_backends = 1
 port               = 443
 use_ssl            = true
 ssl_cert_hostname  = "*.s3.eu-central-1.amazonaws.com"
@@ -36,7 +35,6 @@ EOF
 logging_datadog = []
 service_force_destroy   = true
 
-enable_tls            = true
 tls_certificate_authority = "lets-encrypt"
 tls_force_update          = true
 tls_force_destroy         = true

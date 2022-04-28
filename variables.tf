@@ -117,12 +117,6 @@ variable "service_force_destroy" {
   default     = true
 }
 
-variable "enable_tls" {
-  description = "Enables or not TLS for fastly_service against AWS Route53 service"
-  type        = bool
-  default     = false
-}
-
 variable "tls_certificate_authority" {
   description = "The entity that issues and certifies the TLS certificates"
   type        = string

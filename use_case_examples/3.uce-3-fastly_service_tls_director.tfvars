@@ -1,9 +1,10 @@
 domain = "myawesome-test.exp.magnolia-cloud.com"
 
 service_name       = "magnolia-cloud-myawesome-test-staging"
-director           = false
+#https://developer.fastly.com/reference/api/load-balancing/directors/director/
+director           = true
 backend_address    = "myawesome-test.s3.eu-central-1.amazonaws.com"
-number_of_backends = 1
+number_of_backends = 3 # Differs of 1 because director = true
 port               = 443
 use_ssl            = true
 ssl_cert_hostname  = "*.s3.eu-central-1.amazonaws.com"
@@ -19,11 +20,22 @@ request_settings = [
     force_ssl = true
   }
 ]
-snippets        = []
+snippets        = [
+  {
+    #https://developer.fastly.com/learning/concepts/cache-freshness/#cache-in-fastly-not-in-browsers
+    name     = "Content to be cached by Fastly but not by browsers"
+    type     = "fetch"
+    priority = 100
+    content  = <<EOF
+set beresp.http.Cache-Control = "private, no-store"; # Don't cache in the browser
+set beresp.ttl = 3600s; # Cache in Fastly
+return(deliver);
+EOF
+  }
+]
 logging_datadog = []
 service_force_destroy   = true
 
-enable_tls            = true
 tls_certificate_authority = "lets-encrypt"
 tls_force_update          = true
 tls_force_destroy         = true

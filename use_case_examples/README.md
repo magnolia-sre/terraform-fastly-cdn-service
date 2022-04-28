@@ -30,58 +30,7 @@ Following pre-requisites are required:
    
    ![alt text](../images/5.uce-1-accessingobjects3.png)
 
-## Use Case 1: Fastly Service without TLS
-
-In order to start with the simplest `fastly service` we can parameterize the `terraform-fastly-module` in the following way:
-
-```
-domain = "myawesome-test.exp.magnolia-cloud.com"
-
-service_name       = "magnolia-cloud-myawesome-test-staging"
-director           = false
-backend_address    = "myawesome-test.s3.eu-central-1.amazonaws.com"
-number_of_backends = 1
-port               = 80
-use_ssl            = false
-ssl_cert_hostname  = ""
-ssl_check_cert     = false
-ssl_sni_hostname   = ""
-auto_loadbalance   = false
-max_connections    = 1000
-override_host      = "myawesome-test.s3.eu-central-1.amazonaws.com"
-shield             = null
-request_settings   = []
-snippets           = []
-logging_datadog    = []
-service_force_destroy      = true
-
-enable_tls            = false
-tls_certificate_authority = "lets-encrypt"
-tls_force_update          = true
-tls_force_destroy         = true
-aws_route_53_record       = null
-aws_route_53_validation   = null
-```
-
-Once you have parameterized the `terraform-fastly-module` execute the following commands to deploy it:
-```
- terraform init
- terraform apply -var-file=use_case_examples/1.uce-1-fastly_service_no_tls.tfvars
-```
-
-Finally, we will see the simplest `fastly service` ready, without TLS, snippets, shielding, monitoring ...
-   
-   ![alt text](../images/6.uce-1-fastlyservice.png)
-
-Let's see the fastly service `host`
-   
-   ![alt text](../images/7.uce-1-fastlyservicehost.png)
-
-And doing click in `Test domain` we will see the `myawesome-test` and `object` in XML format
-   
-   ![alt text](../images/8.uce-1-testfastlyservicedomain.png)
-
-## Use Case 2: Fastly Service with TLS
+## Use Case 1: Fastly Service with TLS
 
 In order to update our simple `fastly service` without TLS and provide `TLS feature` we need to parameterize the 
 `terraform-fastly-module` in the following way:
@@ -112,7 +61,6 @@ snippets        = []
 logging_datadog = []
 service_force_destroy   = true
 
-enable_tls            = true
 tls_certificate_authority = "lets-encrypt"
 tls_force_update          = true
 tls_force_destroy         = true
@@ -129,7 +77,7 @@ Once you have parameterized the `terraform-fastly-module` execute the following 
 
 ```
  terraform init
- terraform apply -var-file=use_case_examples/2.uce-2-fastly_service_tls.tfvars
+ terraform apply -var-file=use_case_examples/1.uce-1-fastly_service_tls.tfvars
 ```
 
 Finally, we will see the `fastly service` upgrade, generating the certificates and more for the `TLS` feature ...
@@ -163,7 +111,7 @@ Now we can directly access from a `Web Browser` to the `object` image exposed on
 
    ![alt text](../images/16.uce-2-fastlyservicetlsaccessobject.png)
 
-## Use Case 3: Fastly Service with TLS and VCL (Snippets)
+## Use Case 2: Fastly Service with TLS and VCL (Snippets)
 
 We can extend our `fastly service` using VCL language through [regular VCL snippets](https://docs.fastly.com/en/guides/using-regular-vcl-snippets), 
 for instance we would like to [keep the content in cache in Fastly and not in browsers](https://developer.fastly.com/learning/concepts/cache-freshness/#cache-in-fastly-not-in-browsers), 
@@ -214,7 +162,6 @@ EOF
 logging_datadog = []
 service_force_destroy   = true
 
-enable_tls            = true
 tls_certificate_authority = "lets-encrypt"
 tls_force_update          = true
 tls_force_destroy         = true
@@ -232,7 +179,7 @@ Once you have parameterized the `terraform-fastly-module` execute the following 
 
 ```
  terraform init
- terraform apply -var-file=use_case_examples/3.uce-3-fastly_service_tls_snippets.tfvars
+ terraform apply -var-file=use_case_examples/2.uce-2-fastly_service_tls_snippets.tfvars
 ```
 
 Applied the configuration above we will see the `fastly service` upgraded
@@ -255,7 +202,7 @@ To test the `snippets feature` open in a new Browser the `object` and check agai
    ![alt text](../images/21.uce-3-cachefastlynobrowsertest.png)
 
 
-## Use Case 4: Fastly Service with TLS, VCL (Snippets) and director
+## Use Case 3: Fastly Service with TLS, VCL (Snippets) and director
 
 We can extend our `fastly service` using a [director](https://developer.fastly.com/reference/api/load-balancing/directors/director/),
 for instance we would like to 3 backends under a director, therefore we can extend the previous `fastly service` adding 
@@ -300,7 +247,6 @@ EOF
 logging_datadog = []
 service_force_destroy   = true
 
-enable_tls            = true
 tls_certificate_authority = "lets-encrypt"
 tls_force_update          = true
 tls_force_destroy         = true
@@ -318,7 +264,7 @@ Once parameterized the `terraform-fastly-module` just run the commands:
 
 ```
  terraform init
- terraform apply -var-file=use_case_examples/4.uce-4-fastly_service_director.tfvars
+ terraform apply -var-file=use_case_examples/3.uce-3-fastly_service_director.tfvars
 ```
 
 We will see in the terraform plan new 2 backends more and the existing one added to a `director`, that is going to be 
@@ -331,7 +277,7 @@ Applied the configuration above we will see the `fastly service` upgraded using 
    ![alt text](../images/23.uce-4-fastlydirector3backends.png)
 
 
-## Use Case 5: Fastly Service with TLS, VCL (Snippets) and shielding
+## Use Case 4: Fastly Service with TLS, VCL (Snippets) and shielding
 
 [Shielding](https://docs.fastly.com/en/guides/shielding) is the availability to have [POP (Point of Presence)](https://developer.fastly.com/learning/concepts/shielding/#choosing-a-shield-location) in Fastly to 
 get the content from the closest location according to the request origin.
@@ -386,7 +332,6 @@ EOF
 logging_datadog = []
 service_force_destroy   = true
 
-enable_tls            = true
 tls_certificate_authority = "lets-encrypt"
 tls_force_update          = true
 tls_force_destroy         = true
@@ -404,7 +349,7 @@ Once you have parameterized the `terraform-fastly-module` run the following comm
 
 ```
  terraform init
- terraform apply -var-file=use_case_examples/1.uce-1-fastly_service_no_tls.tfvars
+ terraform apply -var-file=use_case_examples/4.uce-4-fastly_service_no_tls.tfvars
 ```
 
 After applying the above configuration we will see  `fastly_service` with `shielding`
@@ -412,7 +357,7 @@ After applying the above configuration we will see  `fastly_service` with `shiel
    ![alt text](../images/26.uce-5-fastlyimageoptimizerenable.png)
 
 
-## Use Case 6: Fastly Service with TLS, VCL (Snippets) and monitoring (Datadog)
+## Use Case 5: Fastly Service with TLS, VCL (Snippets) and monitoring (Datadog)
 
 `terraform-fastly-module` covers the monitoring feature by using a [custom template](https://git.magnolia-cms.com/users/jvalderrama/repos/fastly_service/browse/monitoring/datadog/access_log_format_fastly.tpl)
 for **Datadog** in order to push logs and related information. The important part to configure this is to set the correct 
@@ -462,7 +407,6 @@ logging_datadog = [
 ]
 service_force_destroy   = true
 
-enable_tls            = true
 tls_certificate_authority = "lets-encrypt"
 tls_force_update          = true
 tls_force_destroy         = true
@@ -480,7 +424,7 @@ Once you have parameterized the `terraform-fastly-module` execute the following 
 
 ```
  terraform init
- terraform apply -var-file=use_case_examples/1.uce-1-fastly_service_no_tls.tfvars
+ terraform apply -var-file=use_case_examples/5.uce-5-fastly_service_no_tls.tfvars
 ```
 
 After applying the above configuration we will see out `fastly_service` with `monitoring` in `Datadog` platform
@@ -493,6 +437,3 @@ Let's check the details
 
 
 That's all .....
-
-
-

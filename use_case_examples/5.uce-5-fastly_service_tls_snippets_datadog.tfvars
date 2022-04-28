@@ -32,10 +32,15 @@ return(deliver);
 EOF
   }
 ]
-logging_datadog = []
+logging_datadog = [
+  {
+    name   = "datadog-myawesome-test-staging"
+    token  = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+    region = "EU"
+  }
+]
 service_force_destroy   = true
 
-enable_tls            = true
 tls_certificate_authority = "lets-encrypt"
 tls_force_update          = true
 tls_force_destroy         = true

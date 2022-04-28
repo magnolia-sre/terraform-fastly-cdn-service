@@ -12,7 +12,8 @@ ssl_sni_hostname   = "*.s3.eu-central-1.amazonaws.com"
 auto_loadbalance   = false
 max_connections    = 1000
 override_host      = "myawesome-test.s3.eu-central-1.amazonaws.com"
-shield             = null
+#https://developer.fastly.com/learning/concepts/shielding/
+shield             = "frankfurt-de"
 request_settings = [
   {
     name      = "force_ssl"
@@ -32,16 +33,9 @@ return(deliver);
 EOF
   }
 ]
-logging_datadog = [
-  {
-    name   = "datadog-myawesome-test-staging"
-    token  = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
-    region = "EU"
-  }
-]
+logging_datadog = []
 service_force_destroy   = true
 
-enable_tls            = true
 tls_certificate_authority = "lets-encrypt"
 tls_force_update          = true
 tls_force_destroy         = true
