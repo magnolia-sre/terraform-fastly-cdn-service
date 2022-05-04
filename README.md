@@ -74,7 +74,7 @@ given the examples in [use cases examples](./use_case_examples/)
 | snippets           | VCL snippet's list configured for the service. [Ref: snippets](https://docs.fastly.com/en/guides/about-vcl-snippets) | list | [] | yes |  
 | request_settings   | Settings used to customize Fastly's request in the exposed service handling. [Ref: request settings](https://developer.fastly.com/reference/glossary/#term-request-settings-object) | list | [] | yes |
 | logging_datadog    | Datadog configuration for fastly service monitoring integration for pushing logs if needed | list | [] | yes |
-| force_destroy      | Services that are active cannot be destroyed. In order to destroy the Service must be true, otherwise false | bool | true | yes |
+| service_force_destroy      | Services that are active cannot be destroyed. In order to destroy the Service must be true, otherwise false | bool | true | yes |
 
 > **TIP**: *Keep the `default values` when you define the representation object in order to **exclude/omit** certain 
 > configuration (features), eg:* `override_host`, `shield` like `null` or  `snippets`,  `logging_datadog` and `request_settings` like `[]`,
