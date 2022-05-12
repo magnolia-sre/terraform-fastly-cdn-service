@@ -1,11 +1,10 @@
 # terraform-fastly-module: A fastly service with Terraform
 
-The `terraform-fastly-module` is in charge to setup a [fastly service](https://docs.fastly.com/en/guides/working-with-services) 
-and more in a nutshell!
+The `terraform-fastly-module` is used to setup a [fastly service](https://docs.fastly.com/en/guides/working-with-services) 
 
 It is based on [fastly terraform provider](https://registry.terraform.io/providers/fastly/fastly/latest/docs) and
-includes an easiest and fastest way to generate `fastly services` with the following **features** included, in case those are
-desired too. They can be performed with simple configuration changes in the `terraform-fastly-module`:
+includes an easy and fast way to generate `fastly services` with the following **features** included, in case those are
+desired as well. They can be performed with simple configuration changes in the `terraform-fastly-module`:
 
 - Fastly service with **TLS** using **AWS Route53** 
 - Add Varnish Configuration Language **- VCL snippets -** to the fastly service
@@ -13,7 +12,7 @@ desired too. They can be performed with simple configuration changes in the `ter
 - Fastly service with **shielding**
 - Fastly service **monitoring** with **Datadog**
 
-Just parameterized the above use cases if needed, and you will get your `fastly service` setup and ready in a glance!!!
+With parameterization of the above use cases you can get your base `fastly service` setup with several features. 
 
 ## How to use it
 
@@ -46,21 +45,11 @@ given the examples in [use cases examples](./use_case_examples/)
 
 ## Argument Reference
 
-| Name | Description | Type | Required |
-|------|-------------|------|:--------:|
-| domain | Internet facing CDN domain | string | yes |
-| fastly_service | Representation object that specifies a fastly service **with/without TLS, snippets, director, shielding and monitoring (datadog)** | object | yes |
-| fastly_service_tls_enable_with_aws | Representation object that specifies a fastly service with TLS provided by **AWS (Route53)** setup and verification | object |  no |
-
-
-### Representation Objects
-
-    - fastly_service object
-
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
+| domain | Internet facing CDN domain | string | "" | yes |
 | service_name       | Fastly service name | string | "" | yes | 
-| director           | Backend's group director declaration. [Ref: director](https://developer.fastly.com/reference/api/load-balancing/directors/director/) | bool | false |  yes |
+| director           | Backend's group director declaration. [Ref: director](https://developer.fastly.com/reference/api/load-balancing/directors/director/) | bool | false |  no |
 | number_of_backends | The port number on which the backends respond | number | 1 | yes |
 | port               | The port number on which the backends respond | number | 80 | yes |
 | use_ssl            | Whether or not to use SSL to reach the backends | bool | false | yes |
@@ -69,36 +58,21 @@ given the examples in [use cases examples](./use_case_examples/)
 | ssl_sni_hostname   | Overrides ssl_hostname, but only for SNI in the handshake. Does not affect cert validation at all | string | "" | yes |  
 | auto_loadbalance   | Indicates whether backend should be included in the pool of backends that requests are load balanced against | bool | false | yes | 
 | max_connections    | Max connection per backend | number |1000 | yes |
-| override_host      | The hostname to override the Host header | string | null | yes |
-| shield             | Fastly Point of Presence (POP). [Ref: shielding](https://developer.fastly.com/learning/concepts/shielding/#choosing-a-shield-location)  . If we are to use it for the fastly `image optimizer` feature for image variations | string | null | yes |
-| snippets           | VCL snippet's list configured for the service. [Ref: snippets](https://docs.fastly.com/en/guides/about-vcl-snippets) | list | [] | yes |  
+| override_host      | The hostname to override the Host header | string | null | no |
+| shield             | Fastly Point of Presence (POP). [Ref: shielding](https://developer.fastly.com/learning/concepts/shielding/#choosing-a-shield-location)  . If we are to use it for the fastly `image optimizer` feature for image variations | string | null | no |
+| snippets           | VCL snippet's list configured for the service. [Ref: snippets](https://docs.fastly.com/en/guides/about-vcl-snippets) | list | [] | no |  
 | request_settings   | Settings used to customize Fastly's request in the exposed service handling. [Ref: request settings](https://developer.fastly.com/reference/glossary/#term-request-settings-object) | list | [] | yes |
-| logging_datadog    | Datadog configuration for fastly service monitoring integration for pushing logs if needed | list | [] | yes |
+| logging_datadog    | Datadog configuration for fastly service monitoring integration for pushing logs if needed | list | [] | no |
 | service_force_destroy      | Services that are active cannot be destroyed. In order to destroy the Service must be true, otherwise false | bool | true | yes |
+| tls_certificate_authority | The entity that issues and certifies the TLS certificates | string | "lets-encrypt" | yes |
+| tls_force_update          | Always update even when active domains are present | bool | true | yes |
+| tls_force_destroy         | Always delete even when active domains are present. | bool | true | yes |
+| route_53_record       | AWS record configuration for TLS fastly service | object | null | yes
+| route_53_validation   | TLS validation in AWS for fastly service |object | null | yes |
 
 > **TIP**: *Keep the `default values` when you define the representation object in order to **exclude/omit** certain 
 > configuration (features), eg:* `override_host`, `shield` like `null` or  `snippets`,  `logging_datadog` and `request_settings` like `[]`,
 >for the `fastly_service` input object variable .
-
-    - fastly_service_tls_enable_with_aws object
-
-| Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
-| service_name       | Fastly service name | string | "" | yes | 
-| enable                | Enables or not TLS for fastly_service against AWS Route53 service | bool | false | yes |
-| certificate_authority | The entity that issues and certifies the TLS certificates | string | "lets-encrypt" | yes |
-| force_update          | Always update even when active domains are present | bool | true | yes |
-| force_destroy         | Always delete even when active domains are present. | bool | true | yes |
-| route_53_record       | AWS record configuration for TLS fastly service | object | null | yes
-| route_53_validation   | TLS validation in AWS for fastly service |object | null | yes |
-
-
-## Attributes Reference
-
-| Name | Description |
-|------|-------------|
-| cdn_url | CDN endpoint for the fastly service created |
-| service_id | Fastly service identifier |
 
 
 ## License
