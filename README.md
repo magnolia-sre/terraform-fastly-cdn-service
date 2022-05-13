@@ -70,11 +70,6 @@ given the examples in [use cases examples](./use_case_examples/)
 | route_53_record       | AWS record configuration for TLS fastly service | object | null | yes
 | route_53_validation   | TLS validation in AWS for fastly service |object | null | yes |
 
-> **TIP**: *Keep the `default values` when you define the representation object in order to **exclude/omit** certain 
-> configuration (features), eg:* `override_host`, `shield` like `null` or  `snippets`,  `logging_datadog` and `request_settings` like `[]`,
->for the `fastly_service` input object variable .
-
-
 ## License
 
 Dual-licensed under both the Magnolia Network Agreement and the GNU General Public License. See [LICENSE](./LICENSE) for full details.
