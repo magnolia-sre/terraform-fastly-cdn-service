@@ -1,6 +1,6 @@
 # Uses Cases ( How to test each feature in the module )  
 
-There are different ways to parameterize the `terraform-fastly-module` (use case examples) in order to setup `myawesome-test` 
+There are different ways to parameterize the `terraform-fastly-service` (use case examples) in order to setup `myawesome-test` 
 and demonstrate how we can `include/exclude`  different **features** in the module. 
 
 Following pre-requisites are required:
@@ -33,7 +33,7 @@ Following pre-requisites are required:
 ## Use Case 1: Fastly Service with TLS
 
 In order to update our simple `fastly service` without TLS and provide `TLS feature` we need to parameterize the 
-`terraform-fastly-module` in the following way:
+`terraform-fastly-service` in the following way:
 
 ```
 domain = "myawesome-test.exp.magnolia-cloud.com"
@@ -73,7 +73,7 @@ aws_route_53_validation = {
   ttl             = 60
 }
 ```
-Once you have parameterized the `terraform-fastly-module` execute the following commands to deploy it:
+Once you have parameterized the `terraform-fastly-service` execute the following commands to deploy it:
 
 ```
  terraform init
@@ -121,7 +121,7 @@ Let's first a request in the Web Browser and let's check the `Request Header` an
 
    ![alt text](../images/17.uce-3-cachefastlyandbrowser.png)
 
-To configure the `terraform-fastly-module` to provide the desired behaviour ([keep the content in cache in Fastly and not in browsers](https://developer.fastly.com/learning/concepts/cache-freshness/#cache-in-fastly-not-in-browsers))
+To configure the `terraform-fastly-service` to provide the desired behaviour ([keep the content in cache in Fastly and not in browsers](https://developer.fastly.com/learning/concepts/cache-freshness/#cache-in-fastly-not-in-browsers))
 we can do it through a following snippet:
 
 ```
@@ -175,7 +175,7 @@ aws_route_53_validation = {
 }
 ```
 
-Once you have parameterized the `terraform-fastly-module` execute the following commands to deploy it:
+Once you have parameterized the `terraform-fastly-service` execute the following commands to deploy it:
 
 ```
  terraform init
@@ -275,7 +275,7 @@ aws_route_53_validation = {
 }
 ```
 
-Once you have parameterized the `terraform-fastly-module` run the following commands for deployment of the module:
+Once you have parameterized the `terraform-fastly-service` run the following commands for deployment of the module:
 
 ```
  terraform init
@@ -295,7 +295,7 @@ In fastly we will be able to see `director` feature in action like in the pictur
 
 ## Use Case 4: Fastly Service with TLS, VCL (Snippets) and monitoring (Datadog)
 
-`terraform-fastly-module` covers the monitoring feature by using a [custom template](https://git.magnolia-cms.com/users/jvalderrama/repos/fastly_service/browse/monitoring/datadog/access_log_format_fastly.tpl)
+`terraform-fastly-service` covers the monitoring feature by using a [custom template](https://git.magnolia-cms.com/users/jvalderrama/repos/fastly_service/browse/monitoring/datadog/access_log_format_fastly.tpl)
 for **Datadog** in order to push logs and related information. The important part to configure this is to set the correct 
 `token` and `region` in the `login_datadog` variable object:
 
@@ -356,7 +356,7 @@ aws_route_53_validation = {
 }
 ```
 
-Once you have parameterized the `terraform-fastly-module` execute the following commands to deploy it:
+Once you have parameterized the `terraform-fastly-service` execute the following commands to deploy it:
 
 ```
  terraform init

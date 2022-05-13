@@ -1,10 +1,10 @@
-# terraform-fastly-module: A fastly service with Terraform
+# terraform-fastly-service: A fastly service with Terraform
 
-The `terraform-fastly-module` is used to setup a [fastly service](https://docs.fastly.com/en/guides/working-with-services) 
+The `terraform-fastly-service` is used to setup a [fastly service](https://docs.fastly.com/en/guides/working-with-services) 
 
 It is based on [fastly terraform provider](https://registry.terraform.io/providers/fastly/fastly/latest/docs) and
 includes an easy and fast way to generate `fastly services` with the following **features** included, in case those are
-desired as well. They can be performed with simple configuration changes in the `terraform-fastly-module`:
+desired as well. They can be performed with simple configuration changes in the `terraform-fastly-service`:
 
 - Fastly service with **TLS** using **AWS Route53** 
 - Add Varnish Configuration Language **- VCL snippets -** to the fastly service
@@ -16,7 +16,7 @@ With parameterization of the above use cases you can get your base `fastly servi
 
 ## How to use it
 
-Once you have the `terraform-fastly-module` you need to provide the correct `credentials` for the `fastly provider` and `aws provider`
+Once you have the `terraform-fastly-service` you need to provide the correct `credentials` for the `fastly provider` and `aws provider`
 
 ```
  export FASTLY_API_KEY="my-fastly-api-key-xxx"
