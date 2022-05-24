@@ -77,7 +77,7 @@ Once you have parameterized the `terraform-fastly-service` execute the following
 
 ```
  terraform init
- terraform apply -var-file=use_case_examples/1.uce-1-fastly_service_tls.tfvars
+ terraform apply -var-file=examples/fastly_service_tls/tls.tfvars
 ```
 
 Finally, we will see the `fastly service` upgrade, generating the certificates and more for the `TLS` feature ...
@@ -179,7 +179,7 @@ Once you have parameterized the `terraform-fastly-service` execute the following
 
 ```
  terraform init
- terraform apply -var-file=use_case_examples/2.uce-2-fastly_service_tls_snippets.tfvars
+ terraform apply -var-file=examples/fastly_service_tls_snippets/snippets.tfvars
 ```
 
 Applied the configuration above we will see the `fastly service` upgraded
@@ -279,7 +279,7 @@ Once you have parameterized the `terraform-fastly-service` run the following com
 
 ```
  terraform init
- terraform apply -var-file=use_case_examples/3.uce-3-fastly_service_shielding_director.tfvars
+ terraform apply -var-file=examples/fastly_service_tls_shielding_director/shielding_director.tfvars
 ```
 
 After applying the above configuration we will see  `fastly_service` with `shielding`
@@ -360,7 +360,7 @@ Once you have parameterized the `terraform-fastly-service` execute the following
 
 ```
  terraform init
- terraform apply -var-file=use_case_examples/4.uce-4-fastly_service_snippets_datadog.tfvars
+ terraform apply -var-file=examples/fastly_service_tls_snippets_datadog/snippets_datadog.tfvars
 ```
 
 After applying the above configuration we will see out `fastly_service` with `monitoring` in `Datadog` platform
