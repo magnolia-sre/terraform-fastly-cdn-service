@@ -39,26 +39,22 @@ In order to update our simple `fastly service` without TLS and provide `TLS feat
 domain = "myawesome-test.exp.magnolia-cloud.com"
 
 service_name       = "magnolia-cloud-myawesome-test-staging"
-director           = false
 backend_address    = "myawesome-test.s3.eu-central-1.amazonaws.com"
-number_of_backends = 1
 port               = 443
 use_ssl            = true
 ssl_cert_hostname  = "*.s3.eu-central-1.amazonaws.com"
 ssl_check_cert     = true
 ssl_sni_hostname   = "*.s3.eu-central-1.amazonaws.com"
-auto_loadbalance   = false
 max_connections    = 1000
 override_host      = "myawesome-test.s3.eu-central-1.amazonaws.com"
-shield             = null
+
 request_settings = [
   {
     name      = "force_ssl"
     force_ssl = true
   }
 ]
-snippets        = []
-logging_datadog = []
+
 service_force_destroy   = true
 
 tls_certificate_authority = "lets-encrypt"
@@ -128,18 +124,14 @@ we can do it through a following snippet:
 domain = "myawesome-test.exp.magnolia-cloud.com"
 
 service_name       = "magnolia-cloud-myawesome-test-staging"
-director           = false
 backend_address    = "myawesome-test.s3.eu-central-1.amazonaws.com"
-number_of_backends = 1
 port               = 443
 use_ssl            = true
 ssl_cert_hostname  = "*.s3.eu-central-1.amazonaws.com"
 ssl_check_cert     = true
 ssl_sni_hostname   = "*.s3.eu-central-1.amazonaws.com"
-auto_loadbalance   = false
 max_connections    = 1000
 override_host      = "myawesome-test.s3.eu-central-1.amazonaws.com"
-shield             = null
 request_settings = [
   {
     name      = "force_ssl"
@@ -159,7 +151,6 @@ return(deliver);
 EOF
   }
 ]
-logging_datadog = []
 service_force_destroy   = true
 
 tls_certificate_authority = "lets-encrypt"
@@ -234,11 +225,9 @@ use_ssl            = true
 ssl_cert_hostname  = "*.s3.eu-central-1.amazonaws.com"
 ssl_check_cert     = true
 ssl_sni_hostname   = "*.s3.eu-central-1.amazonaws.com"
-auto_loadbalance   = false
 max_connections    = 1000
 override_host      = "myawesome-test.s3.eu-central-1.amazonaws.com"
-#Here we set a serving region
-#https://developer.fastly.com/learning/concepts/shielding/
+#To enable shielding feature. Here we set a serving region: https://developer.fastly.com/learning/concepts/shielding/
 shield             = "frankfurt-de"
 request_settings = [
   {
@@ -259,7 +248,7 @@ return(deliver);
 EOF
   }
 ]
-logging_datadog = []
+
 service_force_destroy   = true
 
 tls_certificate_authority = "lets-encrypt"
@@ -303,18 +292,14 @@ for **Datadog** in order to push logs and related information. The important par
 domain = "myawesome-test.exp.magnolia-cloud.com"
 
 service_name       = "magnolia-cloud-myawesome-test-staging"
-director           = false
 backend_address    = "myawesome-test.s3.eu-central-1.amazonaws.com"
-number_of_backends = 1
 port               = 443
 use_ssl            = true
 ssl_cert_hostname  = "*.s3.eu-central-1.amazonaws.com"
 ssl_check_cert     = true
 ssl_sni_hostname   = "*.s3.eu-central-1.amazonaws.com"
-auto_loadbalance   = false
 max_connections    = 1000
 override_host      = "myawesome-test.s3.eu-central-1.amazonaws.com"
-shield             = null
 request_settings = [
   {
     name      = "force_ssl"

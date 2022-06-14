@@ -10,7 +10,6 @@ use_ssl            = true
 ssl_cert_hostname  = "*.s3.eu-central-1.amazonaws.com"
 ssl_check_cert     = true
 ssl_sni_hostname   = "*.s3.eu-central-1.amazonaws.com"
-auto_loadbalance   = false
 max_connections    = 1000
 override_host      = "myawesome-test.s3.eu-central-1.amazonaws.com"
 #Here we set a serving region
@@ -35,7 +34,7 @@ return(deliver);
 EOF
   }
 ]
-logging_datadog = []
+
 service_force_destroy   = true
 
 tls_certificate_authority = "lets-encrypt"
