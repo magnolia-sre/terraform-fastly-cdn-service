@@ -1,6 +1,7 @@
-variable "domain" {
-  type        = string
-  description = "Fastly service domain"
+variable "domains" {
+  type        = list(string)
+  description = "Fastly service domains"
+  default     = []
 }
 
 variable "service_name" {
@@ -83,32 +84,32 @@ variable "shield" {
 
 variable "snippets" {
   description = "VCL snippet's list configured for the service. Ref t.ly/vX8c"
-  type        = list(object({
-      name     = string
-      type     = string
-      priority = number
-      content  = string
-    }))
-  default     = []
+  type = list(object({
+    name     = string
+    type     = string
+    priority = number
+    content  = string
+  }))
+  default = []
 }
 
 variable "request_settings" {
   description = "Settings used to customize Fastly's request in the exposed service handling. Ref: t.ly/gsyr"
-  type        = list(object({
-      name      = string
-      force_ssl = bool
-    }))
-  default     = []
+  type = list(object({
+    name      = string
+    force_ssl = bool
+  }))
+  default = []
 }
 
 variable "logging_datadog" {
   description = "Datadog configuration for fastly service monitoring integration for pushing logs if needed"
-  type        = list(object({
-      name   = string
-      token  = string
-      region = string
-    }))
-  default     = []
+  type = list(object({
+    name   = string
+    token  = string
+    region = string
+  }))
+  default = []
 }
 
 variable "service_force_destroy" {
@@ -137,18 +138,18 @@ variable "tls_force_destroy" {
 
 variable "aws_route_53_record" {
   description = "AWS record configuration for TLS fastly service"
-  type        = object({
-      type = string
-      ttl  = number
-    })
-  default     = null
+  type = object({
+    type = string
+    ttl  = number
+  })
+  default = null
 }
 
 variable "aws_route_53_validation" {
   description = "TLS validation in AWS for fastly service"
-  type        = object({
-      allow_overwrite = bool
-      ttl             = number
-    })
-  default     = null
+  type = object({
+    allow_overwrite = bool
+    ttl             = number
+  })
+  default = null
 }

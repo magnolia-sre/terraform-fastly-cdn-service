@@ -20,7 +20,7 @@ Once you have the `terraform-fastly-service` you need to provide the correct `cr
 
 ```
  export FASTLY_API_KEY="my-fastly-api-key-xxx"
- export AWS_REGION="eu-central-1"
+ export AWS_REGION="my-aws-region"
  export AWS_ACCESS_KEY_ID="my-aws-access-key-id-xxx"
  export AWS_SECRET_ACCESS_KEY="my-aws-secret-access-key-xxx"
  export AWS_SESSION_TOKEN="my-aws-session-token-xxx"
@@ -47,7 +47,7 @@ given the examples in [use cases examples](./use_case_examples/)
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| domain | Internet facing CDN domain | string | "" | yes |
+| domains | Internet facing CDN domains for fastly service | list | [] | yes |
 | service_name       | Fastly service name | string | "" | yes | 
 | director           | Backend's group director declaration. [Ref: director](https://developer.fastly.com/reference/api/load-balancing/directors/director/) | bool | false |  no |
 | number_of_backends | The port number on which the backends respond | number | 1 | yes |

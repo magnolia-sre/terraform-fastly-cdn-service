@@ -36,7 +36,7 @@ In order to update our simple `fastly service` without TLS and provide `TLS feat
 `terraform-fastly-service` in the following way:
 
 ```
-domain = "myawesome-test.exp.magnolia-cloud.com"
+domains = ["myawesome-test.exp.magnolia-cloud.com"]
 
 service_name       = "magnolia-cloud-myawesome-test-staging"
 backend_address    = "myawesome-test.s3.eu-central-1.amazonaws.com"
@@ -87,7 +87,7 @@ Let's check that the AWS Route53 records were created automatically too
    ![alt text](../images/11.uce-2-route53recordsadded.png)
    
 Once the records and the validation has been created in `Fastly` we will see the `TLS` for our `fastly service` activated
-with the domain specified
+with the domains specified
 
    ![alt text](../images/12.uce-2-fastlyservicetlsdone.png)
 
@@ -121,7 +121,7 @@ To configure the `terraform-fastly-service` to provide the desired behaviour ([k
 we can do it through a following snippet:
 
 ```
-domain = "myawesome-test.exp.magnolia-cloud.com"
+domains = ["myawesome-test.exp.magnolia-cloud.com"]
 
 service_name       = "magnolia-cloud-myawesome-test-staging"
 backend_address    = "myawesome-test.s3.eu-central-1.amazonaws.com"
@@ -213,7 +213,7 @@ If we check the current `fastly service` created, we are going to see that this 
 So once requested the `Image Optimizer` feature from Fastly we can set it in config. 
 
 ```
-domain = "myawesome-test.exp.magnolia-cloud.com"
+domain = ["myawesome-test.exp.magnolia-cloud.com"]
 
 service_name       = "magnolia-cloud-myawesome-test-staging"
 #To enable director feature
@@ -289,7 +289,7 @@ for **Datadog** in order to push logs and related information. The important par
 `token` and `region` in the `login_datadog` variable object:
 
 ```
-domain = "myawesome-test.exp.magnolia-cloud.com"
+domains = ["myawesome-test.exp.magnolia-cloud.com"]
 
 service_name       = "magnolia-cloud-myawesome-test-staging"
 backend_address    = "myawesome-test.s3.eu-central-1.amazonaws.com"

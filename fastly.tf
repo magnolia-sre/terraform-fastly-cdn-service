@@ -1,5 +1,5 @@
 locals {
-  host     = regex("[^\\.]*", var.domain)
+  host     = regex("[^\\.]*", var.domains[0])
   backends = [for i in range(0, var.number_of_backends) : "backend_${i}"]
   director = var.director ? toset(formatlist(local.host)) : []
 }
@@ -42,9 +42,13 @@ resource "fastly_service_vcl" "service" {
     }
   }
 
-  domain {
-    name    = var.domain
-    comment = "${var.domain} service domain"
+  dynamic "domain" {
+    for_each = var.domains
+
+    content {
+      name    = domain.value
+      comment = "${domain.value} service domain"
+    }
   }
 
   dynamic "request_setting" {

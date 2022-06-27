@@ -6,15 +6,18 @@ resource "fastly_tls_subscription" "service" {
 }
 
 data "fastly_tls_configuration" "service" {
-  id    = fastly_tls_subscription.service.configuration_id
+  id = fastly_tls_subscription.service.configuration_id
 }
 
 data "aws_route53_zone" "magnolia_cloud_hosted_zone" {
-  name  = regex("\\.(.*)", var.domain)[0]
+  name = regex("\\.(.*)", var.domains[0])[0]
 }
 
 resource "aws_route53_record" "service" {
-  name    = var.domain
+
+  for_each = toset(var.domains)
+
+  name    = each.value
   type    = var.aws_route_53_record["type"]
   zone_id = data.aws_route53_zone.magnolia_cloud_hosted_zone.id
   records = [for dns_record in data.fastly_tls_configuration.service.dns_records : dns_record.record_value if dns_record.record_type == "CNAME"]
