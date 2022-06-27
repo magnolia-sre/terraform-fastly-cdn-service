@@ -1,4 +1,4 @@
-domain = "myawesome-test.exp.magnolia-cloud.com"
+domains = ["myawesome-test.exp.magnolia-cloud.com"]
 
 service_name       = "magnolia-cloud-myawesome-test-staging"
 backend_address    = "myawesome-test.s3.eu-central-1.amazonaws.com"
