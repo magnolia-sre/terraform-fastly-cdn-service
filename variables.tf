@@ -99,7 +99,12 @@ variable "request_settings" {
     name      = string
     force_ssl = bool
   }))
-  default = []
+  default = [
+    {
+      name      = "force_ssl"
+      force_ssl = true
+    }
+  ]
 }
 
 variable "logging_datadog" {

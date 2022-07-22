@@ -61,7 +61,7 @@ given the examples in [use cases examples](./use_case_examples/)
 | override_host      | The hostname to override the Host header | string | null | no |
 | shield             | Fastly Point of Presence (POP). [Ref: shielding](https://developer.fastly.com/learning/concepts/shielding/#choosing-a-shield-location)  . If we are to use it for the fastly `image optimizer` feature for image variations | string | null | no |
 | snippets           | VCL snippet's list configured for the service. [Ref: snippets](https://docs.fastly.com/en/guides/about-vcl-snippets) | list | [] | no |  
-| request_settings   | Settings used to customize Fastly's request in the exposed service handling. [Ref: request settings](https://developer.fastly.com/reference/glossary/#term-request-settings-object) | list | [] | yes |
+| request_settings   | Settings used to customize Fastly's request in the exposed service handling. [Ref: request settings](https://developer.fastly.com/reference/glossary/#term-request-settings-object) | list | [{ name = "force_ssl", force_ssl = true }] | no |
 | logging_datadog    | Datadog configuration for fastly service monitoring integration for pushing logs if needed | list | [] | no |
 | service_force_destroy      | Services that are active cannot be destroyed. In order to destroy the Service must be true, otherwise false | bool | true | yes |
 | tls_certificate_authority | The entity that issues and certifies the TLS certificates | string | "lets-encrypt" | yes |
@@ -73,8 +73,3 @@ given the examples in [use cases examples](./use_case_examples/)
 ## License
 
 Dual-licensed under both the Magnolia Network Agreement and the GNU General Public License. See [LICENSE](./LICENSE) for full details.
-
-
-
-
-   
