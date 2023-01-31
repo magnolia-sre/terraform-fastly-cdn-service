@@ -65,7 +65,10 @@ resource "fastly_service_vcl" "service" {
       name   = logging_datadog.value.name
       token  = logging_datadog.value.token
       region = logging_datadog.value.region
-      format = templatefile("${path.module}/monitoring/datadog/access_log_format_fastly.tpl", { service_name = format("fastly-%s", local.host) })
+      format = try(
+        logging_datadog.value.format,
+        templatefile("${path.module}/monitoring/datadog/access_log_format_fastly.tpl", { service_name = format("fastly-%s", local.host) })
+      )
     }
   }
 

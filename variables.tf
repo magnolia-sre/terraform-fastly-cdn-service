@@ -113,6 +113,7 @@ variable "logging_datadog" {
     name   = string
     token  = string
     region = string
+    format = optional(string)
   }))
   default = []
 }
