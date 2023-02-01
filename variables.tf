@@ -159,3 +159,17 @@ variable "aws_route_53_validation" {
   })
   default = null
 }
+
+variable "headers" {
+  description = "Set up a custom HTTP header for fastly service "
+  type = list(object({
+    name          = string
+    type          = string
+    action        = string
+    destination   = string
+    source        = string
+    ignore_if_set = bool
+    priority      = number
+  }))
+  default = []
+}

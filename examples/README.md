@@ -356,5 +356,68 @@ Let's check the details
 
    ![alt text](../images/28.uce-6-fastlydatadogintegrationdetails.png)
 
+## Use Case 5: Fastly Service with TLS and headers
+
+`terraform-fastly-service` covers the **content headers** feature by configuring it in the fastly service.
+For example we can enable cross-origin resources sharing (CORS) configuring by headers.
+
+```
+domains = ["myawesome-test.exp.magnolia-cloud.com"]
+
+service_name      = "magnolia-cloud-myawesome-test-staging"
+backend_address   = "myawesome-test.s3.eu-central-1.amazonaws.com"
+port              = 443
+use_ssl           = true
+ssl_cert_hostname = "*.s3.eu-central-1.amazonaws.com"
+ssl_check_cert    = true
+ssl_sni_hostname  = "*.s3.eu-central-1.amazonaws.com"
+max_connections   = 1000
+override_host     = "myawesome-test.s3.eu-central-1.amazonaws.com"
+
+request_settings = [
+  {
+    name      = "force_ssl"
+    force_ssl = true
+  }
+]
+
+headers = [
+  {
+    name          = "CORS S3 Allow"
+    type          = "cache"
+    action        = "set"
+    destination   = "http.Access-Control-Allow-Origin"
+    source        = "\"*\""
+    ignore_if_set = false
+    priority      = 10
+  }
+]
+
+service_force_destroy = true
+
+tls_certificate_authority = "lets-encrypt"
+tls_force_update          = true
+tls_force_destroy         = true
+aws_route_53_record = {
+  type = "CNAME"
+  ttl  = 300
+}
+aws_route_53_validation = {
+  allow_overwrite = true
+  ttl             = 60
+}
+```
+
+Once you have parameterized the `terraform-fastly-service` execute the following commands to deploy it:
+
+```
+ terraform init
+ terraform apply -var-file=examples/fastly_service_tls_headers/headers.tfvars
+```
+
+After applying the above configuration we will see out `fastly_service` with `Content` in `headers` platform
+
+![alt text](../images/29.uce-5-fastlyheaders.png)
+
 
 That's all .....
