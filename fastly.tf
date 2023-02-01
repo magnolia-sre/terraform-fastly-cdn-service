@@ -69,5 +69,18 @@ resource "fastly_service_vcl" "service" {
     }
   }
 
+  dynamic "header" {
+    for_each = var.headers
+    content {
+      name          = header.value.name
+      type          = header.value.type
+      action        = header.value.action
+      destination   = header.value.destination
+      source        = header.value.source
+      ignore_if_set = header.value.ignore_if_set
+      priority      = header.value.priority
+    }
+  }
+
   force_destroy = var.service_force_destroy
 }
