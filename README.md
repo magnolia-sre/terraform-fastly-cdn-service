@@ -27,7 +27,7 @@ Once you have the `terraform-fastly-service` you need to provide the correct `cr
 ```
 
 Once you have set those `credentials`, let's explore the different **features provided** and how can they be performed with this module 
-given the examples in [use cases examples](./use_case_examples/)
+given the examples in [use cases examples](./examples/)
 
 ## Requirements
 
