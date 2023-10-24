@@ -25,11 +25,11 @@ resource "aws_route53_record" "service" {
 }
 
 resource "aws_route53_record" "service_validation" {
-  name            = fastly_tls_subscription.service.managed_dns_challenge.record_name
-  type            = fastly_tls_subscription.service.managed_dns_challenge.record_type
+  name            = fastly_tls_subscription.service.managed_dns_challenges.record_name
+  type            = fastly_tls_subscription.service.managed_dns_challenges.record_type
   zone_id         = data.aws_route53_zone.magnolia_cloud_hosted_zone.id
   allow_overwrite = var.aws_route_53_validation["allow_overwrite"]
-  records         = [fastly_tls_subscription.service.managed_dns_challenge.record_value]
+  records         = [fastly_tls_subscription.service.managed_dns_challenges.record_value]
   ttl             = var.aws_route_53_validation["ttl"]
 }
 
