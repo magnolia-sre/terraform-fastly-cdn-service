@@ -40,8 +40,8 @@ given the examples in [use cases examples](./examples/)
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_aws"></a> [hashicorp/aws](https://registry.terraform.io/providers/hashicorp/aws/latest) | 4.2.0 or higher|
-| <a name="requirement_aws"></a> [fastly/fastly](https://registry.terraform.io/providers/fastly/fastly/latest) | 5.0.0 or higher |
+| <a name="requirement_aws"></a> [hashicorp/aws](https://registry.terraform.io/providers/hashicorp/aws/latest) | 5.20.0 or higher|
+| <a name="requirement_aws"></a> [fastly/fastly](https://registry.terraform.io/providers/fastly/fastly/latest) | 5.6.0 or higher |
 
 ## Argument Reference
 
