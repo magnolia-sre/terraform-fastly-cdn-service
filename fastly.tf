@@ -85,5 +85,18 @@ resource "fastly_service_vcl" "service" {
     }
   }
 
+  dynamic "gzip" {
+    for_each = var.enable_compression ? [1] : []
+    content {
+      name          = "${var.service_name}-compression"
+      content_types = var.compression_content_types
+      extensions    = var.compression_extensions
+    }
+  }
+
+  product_enablement {
+    brotli_compression = true
+  }
+
   force_destroy = var.service_force_destroy
 }
