@@ -173,3 +173,21 @@ variable "headers" {
   }))
   default = []
 }
+
+variable "enable_compression" {
+  description = "Enable compression for HTTP content (based on Content-Type)"
+  type        = bool
+  default     = false
+}
+
+variable "compression_content_types" {
+  description = "List of HTTP Content-Type value for which compression should be enabled"
+  type        = list(string)
+  default     = []
+}
+
+variable "compression_extensions" {
+  description = "List of file extensions for which HTTP compression should be enabled"
+  type        = list(string)
+  default     = []
+}

@@ -1,18 +1,18 @@
 # terraform-fastly-service: A fastly service with Terraform
 
-The `terraform-fastly-service` is used to setup a [fastly service](https://docs.fastly.com/en/guides/working-with-services) 
+The `terraform-fastly-service` is used to setup a [fastly service](https://docs.fastly.com/en/guides/working-with-services)
 
 It is based on [fastly terraform provider](https://registry.terraform.io/providers/fastly/fastly/latest/docs) and
 includes an easy and fast way to generate `fastly services` with the following **features** included, in case those are
 desired as well. They can be performed with simple configuration changes in the `terraform-fastly-service`:
 
-- Fastly service with **TLS** using **AWS Route53** 
+- Fastly service with **TLS** using **AWS Route53**
 - Add Varnish Configuration Language **- VCL snippets -** to the fastly service
 - Fastly service with **director**
 - Fastly service with **shielding**
 - Fastly service **monitoring** with **Datadog**
 
-With parameterization of the above use cases you can get your base `fastly service` setup with several features. 
+With parameterization of the above use cases you can get your base `fastly service` setup with several features.
 
 ## How to use it
 
@@ -26,7 +26,7 @@ Once you have the `terraform-fastly-service` you need to provide the correct `cr
  export AWS_SESSION_TOKEN="my-aws-session-token-xxx"
 ```
 
-Once you have set those `credentials`, let's explore the different **features provided** and how can they be performed with this module 
+Once you have set those `credentials`, let's explore the different **features provided** and how can they be performed with this module
 given the examples in [use cases examples](./examples/)
 
 ## Requirements
@@ -48,7 +48,7 @@ given the examples in [use cases examples](./examples/)
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | domains | Internet facing CDN domains for fastly service | list | [] | yes |
-| service_name       | Fastly service name | string | "" | yes | 
+| service_name       | Fastly service name | string | "" | yes |
 | director           | Backend's group director declaration. [Ref: director](https://developer.fastly.com/reference/api/load-balancing/directors/director/) | bool | false |  no |
 | number_of_backends | The port number on which the backends respond | number | 1 | yes |
 | port               | The port number on which the backends respond | number | 80 | yes |
@@ -56,7 +56,7 @@ given the examples in [use cases examples](./examples/)
 | ssl_cert_hostname  | Overrides ssl_hostname, but only for cert verification. Does not affect SNI at all | string | "" | yes |
 | ssl_check_cert     | Check SSL certs | bool | false | yes |
 | ssl_sni_hostname   | Overrides ssl_hostname, but only for SNI in the handshake. Does not affect cert validation at all | string | "" | yes |  
-| auto_loadbalance   | Indicates whether backend should be included in the pool of backends that requests are load balanced against | bool | false | yes | 
+| auto_loadbalance   | Indicates whether backend should be included in the pool of backends that requests are load balanced against | bool | false | yes |
 | max_connections    | Max connection per backend | number |1000 | yes |
 | override_host      | The hostname to override the Host header | string | null | no |
 | shield             | Fastly Point of Presence (POP). [Ref: shielding](https://developer.fastly.com/learning/concepts/shielding/#choosing-a-shield-location)  . If we are to use it for the fastly `image optimizer` feature for image variations | string | null | no |
@@ -69,6 +69,9 @@ given the examples in [use cases examples](./examples/)
 | tls_force_destroy         | Always delete even when active domains are present. | bool | true | yes |
 | route_53_record       | AWS record configuration for TLS fastly service | object | null | yes
 | route_53_validation   | TLS validation in AWS for fastly service |object | null | yes |
+| enable_compression    | Enable compression for HTTP content (based on Content-Type) | bool | false | no |
+| compression_content_types | List of HTTP Content-Type value for which compression should be enabled | list | [], thus Fastly defaults | no |
+| compression_extensions    | List of file extensions for which HTTP compression should be enabled | list | [], thus Fastly defaults | no |
 
 ## License
 
