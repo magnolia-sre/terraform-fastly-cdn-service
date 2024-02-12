@@ -72,6 +72,9 @@ given the examples in [use cases examples](./examples/)
 | enable_compression    | Enable compression for HTTP content (based on Content-Type) | bool | false | no |
 | compression_content_types | List of HTTP Content-Type value for which compression should be enabled | list | [], thus Fastly defaults | no |
 | compression_extensions    | List of file extensions for which HTTP compression should be enabled | list | [], thus Fastly defaults | no |
+| connect_timeout | How long to wait for a timeout in milliseconds | number | 1000 | no |
+| first_byte_timeout | How long to wait for the first bytes in milliseconds | number | 15000 | no |
+| between_bytes_timeout | How long to wait between bytes in milliseconds | number | 10000 | no |
 
 ## License
 

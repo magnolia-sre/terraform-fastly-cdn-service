@@ -191,3 +191,21 @@ variable "compression_extensions" {
   type        = list(string)
   default     = []
 }
+
+variable "first_byte_timeout" {
+  description = "How long to wait for the first bytes in milliseconds"
+  type        = number
+  default     = 15000
+}
+
+variable "between_bytes_timeout" {
+  description = "How long to wait between bytes in milliseconds"
+  type        = number
+  default     = 10000
+}
+
+variable "connect_timeout" {
+  description = "How long to wait for a timeout in milliseconds"
+  type        = number
+  default     = 1000
+}

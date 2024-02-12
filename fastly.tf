@@ -18,17 +18,20 @@ resource "fastly_service_vcl" "service" {
   dynamic "backend" {
     for_each = local.backends
     content {
-      address           = var.backend_address
-      name              = backend.value
-      port              = var.port
-      use_ssl           = var.use_ssl
-      ssl_cert_hostname = var.ssl_cert_hostname
-      ssl_check_cert    = var.ssl_check_cert
-      ssl_sni_hostname  = var.ssl_sni_hostname
-      auto_loadbalance  = var.auto_loadbalance
-      max_conn          = var.max_connections
-      override_host     = var.override_host
-      shield            = var.shield
+      address               = var.backend_address
+      name                  = backend.value
+      port                  = var.port
+      use_ssl               = var.use_ssl
+      ssl_cert_hostname     = var.ssl_cert_hostname
+      ssl_check_cert        = var.ssl_check_cert
+      ssl_sni_hostname      = var.ssl_sni_hostname
+      auto_loadbalance      = var.auto_loadbalance
+      max_conn              = var.max_connections
+      override_host         = var.override_host
+      shield                = var.shield
+      connect_timeout       = var.connect_timeout
+      first_byte_timeout    = var.first_byte_timeout
+      between_bytes_timeout = var.between_bytes_timeout
     }
   }
 
