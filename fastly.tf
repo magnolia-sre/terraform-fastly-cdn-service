@@ -97,8 +97,12 @@ resource "fastly_service_vcl" "service" {
     }
   }
 
-  product_enablement {
-    brotli_compression = true
+  dynamic "product_enablement" {
+    for_each = var.product_enablement
+    content {
+      brotli_compression = product_enablement.value.brotli_compression
+      image_optimizer    = product_enablement.value.image_optimizer
+    }
   }
 
   force_destroy = var.service_force_destroy
