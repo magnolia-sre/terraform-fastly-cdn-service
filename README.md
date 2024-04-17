@@ -59,7 +59,8 @@ given the examples in [use cases examples](./examples/)
 | auto_loadbalance   | Indicates whether backend should be included in the pool of backends that requests are load balanced against | bool | false | yes |
 | max_connections    | Max connection per backend | number |1000 | yes |
 | override_host      | The hostname to override the Host header | string | null | no |
-| shield             | Fastly Point of Presence (POP). [Ref: shielding](https://developer.fastly.com/learning/concepts/shielding/#choosing-a-shield-location)  . If we are to use it for the fastly `image optimizer` feature for image variations | string | null | no |
+| shield             | Fastly Point of Presence (POP). [Ref: shielding](https://developer.fastly.com/learning/concepts/shielding/#choosing-a-shield-location). Required if the `image optimizer` feature for image variations is used. If the `shield` parameter is set, the `image_optimizer` flag has to be included in the `product_enablement` list and be set to `true` | string | null | no |
+| product_enablement | Additional fastly features that should be enabled. If `image_optimizer` is included in this list,  the parameter `shield` is required too | list | [], thus Fastly defaults | no |
 | snippets           | VCL snippet's list configured for the service. [Ref: snippets](https://docs.fastly.com/en/guides/about-vcl-snippets) | list | [] | no |  
 | request_settings   | Settings used to customize Fastly's request in the exposed service handling. [Ref: request settings](https://developer.fastly.com/reference/glossary/#term-request-settings-object) | list | [{ name = "force_ssl", force_ssl = true }] | no |
 | logging_datadog    | Datadog configuration for fastly service monitoring integration for pushing logs if needed | list | [] | no |

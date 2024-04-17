@@ -82,6 +82,20 @@ variable "shield" {
   default     = null
 }
 
+variable "product_enablement" {
+  description = "Fastly service additional settings configurations"
+  type = list(object({
+    brotli_compression = bool
+    image_optimizer    = bool
+  }))
+  default = [
+    {
+      brotli_compression = true
+      image_optimizer    = false
+    }
+  ]
+}
+
 variable "snippets" {
   description = "VCL snippet's list configured for the service. Ref t.ly/vX8c"
   type = list(object({
